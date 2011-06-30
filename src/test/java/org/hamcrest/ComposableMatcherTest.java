@@ -1,6 +1,6 @@
 package org.hamcrest;
 
-import static org.hamcrest.MatcherBuilder.is;
+import static org.hamcrest.ComposableMatcher.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
@@ -8,16 +8,10 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-/**
- * Unit tests for the {@link MatcherBuilder}.
- *
- * @author Jeroen van Schagen
- * @since 20-03-2011
- */
-public class MatcherBuilderTest {
+public class ComposableMatcherTest {
 
     /**
-     * Assert that our regular matcher logic is maintained.
+     * Matchers should still work when composed.
      */
     @Test
     public void testMatcher() {
@@ -26,33 +20,33 @@ public class MatcherBuilderTest {
     }
     
     /**
-     * Assert that matchers can be combined using a logical AND.
+     * We can also combine matchers with "AND" conditional logic.
      */
     @Test
     public void testAnd() {
-        MatcherBuilder<Integer> betweenOneAndThree = is(greaterThan(1)).and(lessThan(3));
+        ComposableMatcher<Integer> betweenOneAndThree = is(greaterThan(1)).and(lessThan(3));
         assertThat(2, betweenOneAndThree);
         assertThat(1, not(betweenOneAndThree));
         assertThat(3, not(betweenOneAndThree));
     }
 
     /**
-     * Assert that matchers can be combined using a logical OR.
+     * We can also combine matchers with "OR" conditional logic.
      */
     @Test
     public void testOr() {
-        MatcherBuilder<Integer> greaterThanOneOrNegative = is(greaterThan(1)).or(lessThan(0));
+        ComposableMatcher<Integer> greaterThanOneOrNegative = is(greaterThan(1)).or(lessThan(0));
         assertThat(2, greaterThanOneOrNegative);
         assertThat(-1, greaterThanOneOrNegative);
         assertThat(1, not(greaterThanOneOrNegative));
     }
 
     /**
-     * Assert that a matcher can be negated.
+     * Matchers can also be negated.
      */
     @Test
     public void testNot() {
-        MatcherBuilder<? super Integer> notGreaterThanOne = is(greaterThan(1)).not();
+        ComposableMatcher<? super Integer> notGreaterThanOne = is(greaterThan(1)).not();
         assertThat(1, notGreaterThanOne);
         assertThat(2, not(notGreaterThanOne)); // not + not = true
     }

@@ -44,20 +44,14 @@ public class PathTraverser {
         PropertyDescriptor property = PropertyUtil.getPropertyDescriptor(propertyName, container);
         if(property == null) {
             throw new IllegalStateException(
-               String.format(
-                   "Object [%s] does not have a property '%s'",
-                   container.getClass().getSimpleName(), propertyName
-               )
+                String.format("Object [%s] does not have a property '%s'",container.getClass(), propertyName)
             );
         }
         
         Method readMethod = property.getReadMethod();
         if(readMethod == null) {
             throw new IllegalStateException(
-               String.format(
-                   "Property '%s' in [%s] is not readable",
-                   propertyName, container.getClass().getSimpleName()
-               )
+               String.format("Property '%s' in [%s] is not readable", propertyName, container.getClass())
             );
         }
         

@@ -17,39 +17,39 @@ import java.util.Collection;
  *
  * @param <T> type of elements being matched on
  */
-public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
+public class ComposableMatcher<T> extends TypeSafeMatcher<T> {
     private final Matcher<? super T> matcher;
 
     /**
-     * Construct a new {@link MatcherBuilder}.
+     * Construct a new {@link ComposableMatcher}.
      * @param matcher initial matcher that should be used
      */
-    public MatcherBuilder(Matcher<? super T> matcher) {
+    public ComposableMatcher(Matcher<? super T> matcher) {
         if (matcher == null) {
-            throw new IllegalArgumentException("Matcher builder requires a not-null initial matcher.");
+            throw new IllegalArgumentException("Composed matcher cannot be null");
         }
         this.matcher = matcher;
     }
 
     /**
-     * Construct a new {@link MatcherBuilder}.
+     * Construct a new {@link ComposableMatcher}.
      * @param <T> type of elements being matched on
      * @param matcher initial matcher that should be used
      * @return new matcher builder, based on our initial matcher
      */
-    public static <T> MatcherBuilder<T> is(Matcher<T> matcher) {
+    public static <T> ComposableMatcher<T> is(Matcher<T> matcher) {
         return builder(matcher); // Results in more readable matcher compositions
     }
 
     /**
-     * Construct a new {@link MatcherBuilder}.
+     * Construct a new {@link ComposableMatcher}.
      * @param <T> type of elements being matched on
      * @param matcher initial matcher that should be used
      * @return new matcher builder, based on our initial matcher
      */
     @Factory
-    public static <T> MatcherBuilder<T> builder(Matcher<T> matcher) {
-        return new MatcherBuilder<T>(matcher);
+    public static <T> ComposableMatcher<T> builder(Matcher<T> matcher) {
+        return new ComposableMatcher<T>(matcher);
     }
 
     /**
@@ -58,7 +58,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @param other another matcher we should combine with
      * @return new matcher, which combines the logic of both matchers
      */
-    public MatcherBuilder<T> and(Matcher<? super T> other) {
+    public ComposableMatcher<T> and(Matcher<? super T> other) {
         return builder(Matchers.allOf(combineMatcherWith(other)));
     }
 
@@ -80,7 +80,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @param other another matcher we should combine with
      * @return new matcher, which combines the logic of both matchers
      */
-    public MatcherBuilder<T> or(Matcher<? super T> other) {
+    public ComposableMatcher<T> or(Matcher<? super T> other) {
         return builder(Matchers.anyOf(combineMatcherWith(other)));
     }
 
@@ -88,8 +88,8 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * Construct a new matcher that negates the logic of our current matcher.
      * @return new matcher, which negates the logic of our current matcher
      */
-    public MatcherBuilder<T> not() {
-        return new MatcherBuilder<T>(Matchers.not(matcher));
+    public ComposableMatcher<T> not() {
+        return new ComposableMatcher<T>(Matchers.not(matcher));
     }
 
     /**
