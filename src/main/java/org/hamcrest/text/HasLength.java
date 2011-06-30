@@ -23,13 +23,13 @@ public class HasLength extends FeatureMatcher<CharSequence, Integer> {
     }
     
     @Factory
-    public static HasLength hasLength(Matcher<? super Integer> lengthMatcher) {
+    public static HasLength length(Matcher<? super Integer> lengthMatcher) {
         return new HasLength(lengthMatcher);
     }
     
     @Factory
-    public static HasLength hasLengthOf(Integer length) {
-        return hasLength(equalTo(length));
+    public static HasLength lengthIs(Integer length) {
+        return length(equalTo(length));
     }
     
     /**

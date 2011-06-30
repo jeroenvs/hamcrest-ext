@@ -23,13 +23,13 @@ public class HasPattern extends TypeSafeMatcher<CharSequence> {
     }
     
     @Factory
-    public static HasPattern hasPattern(Pattern pattern) {
+    public static HasPattern pattern(Pattern pattern) {
         return new HasPattern(pattern);
     }
     
     @Factory
-    public static HasPattern hasPattern(String regex) {
-        return hasPattern(Pattern.compile(regex));
+    public static HasPattern pattern(String regex) {
+        return pattern(Pattern.compile(regex));
     }
     
     /**
