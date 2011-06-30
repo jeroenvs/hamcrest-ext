@@ -30,7 +30,7 @@ public class MatcherBuilderTest {
      */
     @Test
     public void testAnd() {
-        MatcherBuilder<Integer> betweenOneAndThree = new MatcherBuilder<Integer>(greaterThan(1)).and(lessThan(3));
+        MatcherBuilder<Integer> betweenOneAndThree = is(greaterThan(1)).and(lessThan(3));
         assertThat(2, betweenOneAndThree);
         assertThat(1, not(betweenOneAndThree));
         assertThat(3, not(betweenOneAndThree));
@@ -41,7 +41,7 @@ public class MatcherBuilderTest {
      */
     @Test
     public void testOr() {
-        MatcherBuilder<Integer> greaterThanOneOrNegative = new MatcherBuilder<Integer>(greaterThan(1)).or(lessThan(0));
+        MatcherBuilder<Integer> greaterThanOneOrNegative = is(greaterThan(1)).or(lessThan(0));
         assertThat(2, greaterThanOneOrNegative);
         assertThat(-1, greaterThanOneOrNegative);
         assertThat(1, not(greaterThanOneOrNegative));
