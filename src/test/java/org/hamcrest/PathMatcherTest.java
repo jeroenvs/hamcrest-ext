@@ -32,7 +32,7 @@ public class PathMatcherTest {
     public void testMatchWithNullElement() {
         Customer customer = new Customer();
         assertNull(customer.getAddress());
-        
+
         assertThat(customer, valueOf(STREET_PATH, nullValue()));
     }
     
