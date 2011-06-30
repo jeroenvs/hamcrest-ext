@@ -24,7 +24,7 @@ public class ComposableMatcherTest {
      */
     @Test
     public void testAnd() {
-        ComposableMatcher<Integer> betweenOneAndThree = is(greaterThan(1)).and(lessThan(3));
+        Matcher<Integer> betweenOneAndThree = is(greaterThan(1)).and(lessThan(3));
         assertThat(2, betweenOneAndThree);
         assertThat(1, not(betweenOneAndThree));
         assertThat(3, not(betweenOneAndThree));
@@ -35,7 +35,7 @@ public class ComposableMatcherTest {
      */
     @Test
     public void testOr() {
-        ComposableMatcher<Integer> greaterThanOneOrNegative = is(greaterThan(1)).or(lessThan(0));
+        Matcher<Integer> greaterThanOneOrNegative = is(greaterThan(1)).or(lessThan(0));
         assertThat(2, greaterThanOneOrNegative);
         assertThat(-1, greaterThanOneOrNegative);
         assertThat(1, not(greaterThanOneOrNegative));
@@ -46,7 +46,7 @@ public class ComposableMatcherTest {
      */
     @Test
     public void testNot() {
-        ComposableMatcher<? super Integer> notGreaterThanOne = is(greaterThan(1)).not();
+        Matcher<Integer> notGreaterThanOne = is(greaterThan(1)).not();
         assertThat(1, notGreaterThanOne);
         assertThat(2, not(notGreaterThanOne)); // not + not = true
     }

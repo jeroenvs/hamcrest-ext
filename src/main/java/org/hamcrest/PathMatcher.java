@@ -2,12 +2,26 @@ package org.hamcrest;
 
 import com.mysema.query.types.Path;
 
+/**
+ * Matches the current value of a specific path.
+ * 
+ * @author Jeroen van Schagen
+ * @since 30-06-2011
+ *
+ * @param <T> type of the path root
+ * @param <P> type of value being matched
+ */
 public class PathMatcher<T,P> extends TypeSafeDiagnosingMatcher<T> {   
     private static final PathTraverser PATH_TRAVERSER = new PathTraverser();
     
     private final Path<P> path;
     private final Matcher<? super P> valueMatcher;
     
+    /**
+     * Construct a new {@link PathMatcher}.
+     * @param path the path to our value
+     * @param valueMatcher used to match the value
+     */
     public PathMatcher(Path<P> path, Matcher<? super P> valueMatcher) {
         this.path = path;
         this.valueMatcher = valueMatcher;

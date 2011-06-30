@@ -7,8 +7,22 @@ import java.lang.reflect.Method;
 
 import com.mysema.query.types.Path;
 
+/**
+ * Traverses a Query DSL {@link Path}, retrieving the current value.
+ * 
+ * @author Jeroen van Schagen
+ * @since 30-06-2011
+ */
 public class PathTraverser {
 
+    /**
+     * Retrieve the current value of a path.
+     * 
+     * @param <T> type of value being returned
+     * @param path path to the desired value
+     * @param container root object, from where our path starts
+     * @return current path value
+     */
     @SuppressWarnings("unchecked")
     public <T> T traverse(Path<T> path, Object container) {
         // Retrieve the object that contains our property directly
@@ -35,6 +49,13 @@ public class PathTraverser {
         return (T) result;
     }
     
+    /**
+     * Read the current property value from an object.
+     * 
+     * @param propertyName name of the property
+     * @param container object that contains the property
+     * @return current property value
+     */
     protected Object readProperty(String propertyName, Object container) {       
         PropertyDescriptor property;
         try {

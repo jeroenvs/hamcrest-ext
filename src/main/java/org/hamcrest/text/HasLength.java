@@ -6,6 +6,12 @@ import org.hamcrest.Factory;
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 
+/**
+ * Check if a text matches some length.
+ * 
+ * @author Jeroen van Schagen
+ * @since 30-06-2011
+ */
 public class HasLength extends FeatureMatcher<CharSequence, Integer> {
 
     /**

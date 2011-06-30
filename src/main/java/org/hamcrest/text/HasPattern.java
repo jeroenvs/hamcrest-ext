@@ -6,6 +6,12 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.TypeSafeMatcher;
 
+/**
+ * Check if a text matches some regex pattern.
+ * 
+ * @author Jeroen van Schagen
+ * @since 30-06-2011
+ */
 public class HasPattern extends TypeSafeMatcher<CharSequence> {
     private final Pattern pattern;
     
