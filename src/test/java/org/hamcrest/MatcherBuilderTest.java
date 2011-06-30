@@ -24,13 +24,13 @@ public class MatcherBuilderTest {
         assertThat(2, is(greaterThan(1)));
         assertThat(1, not(is(greaterThan(1))));
     }
-
+    
     /**
      * Assert that matchers can be combined using a logical AND.
      */
     @Test
     public void testAnd() {
-        MatcherBuilder<Integer> betweenOneAndThree = is(greaterThan(1)).and(lessThan(3));
+        MatcherBuilder<Integer> betweenOneAndThree = new MatcherBuilder<Integer>(greaterThan(1)).and(lessThan(3));
         assertThat(2, betweenOneAndThree);
         assertThat(1, not(betweenOneAndThree));
         assertThat(3, not(betweenOneAndThree));
@@ -41,7 +41,7 @@ public class MatcherBuilderTest {
      */
     @Test
     public void testOr() {
-        MatcherBuilder<Integer> greaterThanOneOrNegative = is(greaterThan(1)).or(lessThan(0));
+        MatcherBuilder<Integer> greaterThanOneOrNegative = new MatcherBuilder<Integer>(greaterThan(1)).or(lessThan(0));
         assertThat(2, greaterThanOneOrNegative);
         assertThat(-1, greaterThanOneOrNegative);
         assertThat(1, not(greaterThanOneOrNegative));
@@ -52,7 +52,7 @@ public class MatcherBuilderTest {
      */
     @Test
     public void testNot() {
-        MatcherBuilder<Integer> notGreaterThanOne = is(greaterThan(1)).not();
+        MatcherBuilder<Integer> notGreaterThanOne = new MatcherBuilder<Integer>(greaterThan(1)).not();
         assertThat(1, notGreaterThanOne);
         assertThat(2, not(notGreaterThanOne)); // not + not = true
     }

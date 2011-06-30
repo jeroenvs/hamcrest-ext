@@ -9,7 +9,7 @@ import java.util.Collection;
  * intuitive and simple programming interface:
  *
  * <pre>
- *  that(is(simple())).and(intuitive());
+ *  is(simple()).and(intuitive());
  * </pre>
  *
  * @author Jeroen van Schagen
@@ -24,9 +24,9 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * Construct a new {@link MatcherBuilder}.
      * @param matcher initial matcher that should be used
      */
-    private MatcherBuilder(Matcher<? super T> matcher) {
+    public MatcherBuilder(Matcher<? super T> matcher) {
         if (matcher == null) {
-            throw new IllegalArgumentException("Cannot construct a matcher builder, using an initial null matcher.");
+            throw new IllegalArgumentException("Matcher builder requires a not-null initial matcher.");
         }
         this.matcher = matcher;
     }
@@ -59,7 +59,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @return new matcher, which combines the logic of both matchers
      */
     public MatcherBuilder<T> and(Matcher<? super T> other) {
-        return new MatcherBuilder<T>(Matchers.allOf(combineMatcherWith(other)));
+        return builder(Matchers.allOf(combineMatcherWith(other)));
     }
 
     /**
@@ -81,7 +81,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @return new matcher, which combines the logic of both matchers
      */
     public MatcherBuilder<T> or(Matcher<? super T> other) {
-        return new MatcherBuilder<T>(Matchers.anyOf(combineMatcherWith(other)));
+        return builder(Matchers.anyOf(combineMatcherWith(other)));
     }
 
     /**
@@ -89,7 +89,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @return new matcher, which negates the logic of our current matcher
      */
     public MatcherBuilder<T> not() {
-        return new MatcherBuilder<T>(Matchers.not(matcher));
+        return builder(Matchers.not(matcher));
     }
 
     /**

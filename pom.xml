@@ -28,7 +28,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.3.2</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -43,6 +43,15 @@
 			<artifactId>hamcrest-all</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		<!-- Type-safe property matchers -->
+		<!-- Matching based on static meta model -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>2.2.0-beta4</version>
+			<optional>true</optional>
+	    </dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
