@@ -52,7 +52,7 @@ public class MatcherBuilderTest {
      */
     @Test
     public void testNot() {
-        MatcherBuilder<Integer> notGreaterThanOne = new MatcherBuilder<Integer>(greaterThan(1)).not();
+        MatcherBuilder<? super Integer> notGreaterThanOne = is(greaterThan(1)).not();
         assertThat(1, notGreaterThanOne);
         assertThat(2, not(notGreaterThanOne)); // not + not = true
     }

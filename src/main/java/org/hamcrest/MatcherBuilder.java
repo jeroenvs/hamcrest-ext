@@ -37,7 +37,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @param matcher initial matcher that should be used
      * @return new matcher builder, based on our initial matcher
      */
-    public static <T> MatcherBuilder<T> is(Matcher<? super T> matcher) {
+    public static <T> MatcherBuilder<T> is(Matcher<T> matcher) {
         return builder(matcher); // Results in more readable matcher compositions
     }
 
@@ -48,7 +48,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @return new matcher builder, based on our initial matcher
      */
     @Factory
-    public static <T> MatcherBuilder<T> builder(Matcher<? super T> matcher) {
+    public static <T> MatcherBuilder<T> builder(Matcher<T> matcher) {
         return new MatcherBuilder<T>(matcher);
     }
 
@@ -89,7 +89,7 @@ public class MatcherBuilder<T> extends TypeSafeMatcher<T> {
      * @return new matcher, which negates the logic of our current matcher
      */
     public MatcherBuilder<T> not() {
-        return builder(Matchers.not(matcher));
+        return new MatcherBuilder<T>(Matchers.not(matcher));
     }
 
     /**
