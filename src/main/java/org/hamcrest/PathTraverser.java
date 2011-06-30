@@ -1,10 +1,9 @@
 package org.hamcrest;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.hamcrest.beans.PropertyUtil;
 
 import com.mysema.query.types.Path;
 
@@ -18,8 +17,8 @@ public class PathTraverser {
         }
 
         Object result = null;
-       
-        switch(path.getMetadata().getPathType()) {
+        if(container != null) { // Cannot traverse from a null pointer
+            switch(path.getMetadata().getPathType()) {
             case PROPERTY:
                 // Access the property from public getter method
                 String propertyName = path.getMetadata().getExpression().toString();
@@ -31,18 +30,16 @@ public class PathTraverser {
                 break;
             default:
                 throw new UnsupportedOperationException();
+            }
         }
-        
         return (T) result;
     }
     
-    protected Object readProperty(String propertyName, Object container) {
-        if(container == null) {
-            return null;
-        }
-        
-        PropertyDescriptor property = PropertyUtil.getPropertyDescriptor(propertyName, container);
-        if(property == null) {
+    protected Object readProperty(String propertyName, Object container) {       
+        PropertyDescriptor property;
+        try {
+            property = new PropertyDescriptor(propertyName, container.getClass());
+        } catch (IntrospectionException e) {
             throw new IllegalStateException(
                 String.format("Object [%s] does not have a property '%s'",container.getClass(), propertyName)
             );

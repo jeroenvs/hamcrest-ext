@@ -1,8 +1,10 @@
 package org.hamcrest;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.PathMatcher.valueOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import org.hamcrest.domain.Address;
@@ -24,6 +26,14 @@ public class PathMatcherTest {
         customer.setAddress(address);
 
         assertThat(customer, valueOf(STREET_PATH, equalTo("blaway 142")));
+    }
+    
+    @Test
+    public void testMatchWithNullElement() {
+        Customer customer = new Customer();
+        assertNull(customer.getAddress());
+        
+        assertThat(customer, valueOf(STREET_PATH, nullValue()));
     }
     
     @Test
