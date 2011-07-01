@@ -19,13 +19,13 @@ public class HasRemainder extends TypeSafeMatcher<Number> {
     }
     
     @Factory
-    public static HasRemainder remainder(Number divisor, Matcher<BigDecimal> remainderMatcher) {
+    public static HasRemainder remainderBy(Number divisor, Matcher<BigDecimal> remainderMatcher) {
         return new HasRemainder(divisor, remainderMatcher);
     }
 
     @Factory
     public static HasRemainder dividableBy(Number divisor) {
-        return remainder(divisor, equalTo(new BigDecimal(0)));
+        return remainderBy(divisor, equalTo(new BigDecimal(0)));
     }
     
     /**
@@ -37,8 +37,7 @@ public class HasRemainder extends TypeSafeMatcher<Number> {
     }
     
     protected BigDecimal remainder(Number divident) {
-        BigDecimal dividentDecimal = new BigDecimal(divident.toString());
-        return dividentDecimal.remainder(divisorDecimal);
+        return new BigDecimal(divident.toString()).remainder(divisorDecimal);
     }
     
     /**

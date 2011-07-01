@@ -3,7 +3,7 @@ package org.hamcrest.number;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.number.HasRemainder.dividableBy;
-import static org.hamcrest.number.HasRemainder.remainder;
+import static org.hamcrest.number.HasRemainder.remainderBy;
 import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
@@ -33,7 +33,7 @@ public class HasRemainderTest {
      */
     @Test
     public void testRemainderOfDecimal() {
-        assertThat(4.1, remainder(2, equalTo(new BigDecimal("0.1"))));
+        assertThat(4.1, remainderBy(2, equalTo(new BigDecimal("0.1"))));
     }
     
 }
